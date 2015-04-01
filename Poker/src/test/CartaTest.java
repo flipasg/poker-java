@@ -45,8 +45,33 @@ public class CartaTest extends TestCase{
     }
     
     @Test
+    public void testCartasIgualesPaloDistinto() {
+	Carta c2 = new Carta(0, 1);
+	assertEquals(c, c2);
+    }
+    
+    @Test
     public void testCartasDistintas() {
-	Carta c2 = new Carta(0,1);
+	Carta c2 = new Carta(1,1);
 	assertFalse(c.equals(c2));
     }
+    
+    @Test
+    public void testComparacionCartaMayor() {
+	Carta c2 = new Carta(1,0);
+	assertEquals(-1, c.compareTo(c2));
+    }
+    
+    @Test
+    public void testComparacionCartaIgual() {
+	Carta c2 = new Carta(0,0);
+	assertEquals(0, c.compareTo(c2));
+    }
+    
+    @Test
+    public void testComparacionCartaMenor() {
+	Carta c2 = new Carta(1,0);
+	assertEquals(1, c2.compareTo(c));
+    }
+    
 }

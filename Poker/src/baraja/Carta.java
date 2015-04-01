@@ -6,7 +6,7 @@
 package baraja;
 
 //Comienza la clase Carta
-public class Carta {
+public class Carta implements Comparable<Carta>{
     private static final String[] PALOS = 
 	{"Picas", "Corazones", "Treboles", "Diamantes"};
     private static final String[] VALORES =
@@ -50,7 +50,7 @@ public class Carta {
     public String verCarta() {
 	return VALORES[valor] + " de " + PALOS[palo];
     }
-
+    
     /* Método sobreescrito : equals
      * @see java.lang.Object#equals(java.lang.Object)
      */
@@ -63,11 +63,23 @@ public class Carta {
 	if (getClass() != obj.getClass())
 	    return false;
 	Carta other = (Carta) obj;
-	if (palo != other.palo)
-	    return false;
 	if (valor != other.valor)
 	    return false;
 	return true;
+    }
+
+    /* Método sobreescrito : compareTo
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(Carta o) {
+	if(valor<o.valor) return -1;
+	else if(valor>o.valor) return 1;
+	else {
+	    if(palo<o.palo) return -1;
+	    else if(palo>o.palo) return 1;
+	    else return 0;
+	}
     }
     
     
