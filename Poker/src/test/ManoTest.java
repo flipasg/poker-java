@@ -20,125 +20,148 @@ public class ManoTest extends TestCase{
     @Before
     public void setUp() {
 	mano = new Carta[5];
-	mano[0] = new Carta(3,3);
-	mano[1] = new Carta(11,3);
-	mano[2] = new Carta(0,3);
-	mano[3] = new Carta(4,3);
-	mano[4] = new Carta(5,3);
-	
-	m = new Mano(mano);
     }
     
     @Test
-    public void testManoOrdenadaMismoPalo() {
+    public void testManoCartaMasAlta() {
+	mano[0] = new Carta(10,3);
+	mano[1] = new Carta(5,0);
+	mano[2] = new Carta(3,1);
+	mano[3] = new Carta(1,2);
+	mano[4] = new Carta(8,0);
+	
+	m = new Mano(mano);
+	m.determinarMano();
+	
+	assertEquals("Carta mas alta", m.mostrarJugada());
+    }
+    
+    @Test
+    public void testManoPareja() {
+	mano[0] = new Carta(10,3);
+	mano[1] = new Carta(2,0);
+	mano[2] = new Carta(3,1);
+	mano[3] = new Carta(2,2);
+	mano[4] = new Carta(8,0);
+	
+	m = new Mano(mano);
+	m.determinarMano();
+	
+	assertEquals("Pareja", m.mostrarJugada());
+    }
+    
+    @Test
+    public void testManoDoblePareja() {
+	mano[0] = new Carta(10,3);
+	mano[1] = new Carta(2,0);
+	mano[2] = new Carta(3,1);
+	mano[3] = new Carta(2,2);
+	mano[4] = new Carta(10,0);
+	
+	m = new Mano(mano);
+	m.determinarMano();
+	
+	assertEquals("Doble pareja", m.mostrarJugada());
+    }
+    
+    @Test
+    public void testManoTrio() {
+	mano[0] = new Carta(7,3);
+	mano[1] = new Carta(2,0);
+	mano[2] = new Carta(2,1);
+	mano[3] = new Carta(2,2);
+	mano[4] = new Carta(10,0);
+	
+	m = new Mano(mano);
+	m.determinarMano();
+	
+	assertEquals("Trio", m.mostrarJugada());
+    }
+    
+    @Test
+    public void testManoEscalera() {
+	mano[0] = new Carta(5,3);
+	mano[1] = new Carta(1,0);
+	mano[2] = new Carta(4,1);
+	mano[3] = new Carta(2,2);
+	mano[4] = new Carta(3,0);
+	
+	m = new Mano(mano);
+	m.determinarMano();
+	
+	assertEquals("Escalera", m.mostrarJugada());
+    }
+    
+    @Test
+    public void testManoColor() {
+	mano[0] = new Carta(11,0);
+	mano[1] = new Carta(1,0);
+	mano[2] = new Carta(4,0);
+	mano[3] = new Carta(7,0);
+	mano[4] = new Carta(3,0);
+	
+	m = new Mano(mano);
+	m.determinarMano();
+	
+	assertEquals("Color", m.mostrarJugada());
+    }
+    
+    @Test
+    public void testManoFullHouse() {
+	mano[0] = new Carta(7,3);
+	mano[1] = new Carta(2,0);
+	mano[2] = new Carta(7,1);
+	mano[3] = new Carta(2,2);
+	mano[4] = new Carta(2,0);
+	
+	m = new Mano(mano);
+	m.determinarMano();
+	
+	assertEquals("Full house", m.mostrarJugada());
+    }
+    
+    @Test
+    public void testManoPoquer() {
+	mano[0] = new Carta(7,3);
+	mano[1] = new Carta(2,0);
+	mano[2] = new Carta(2,1);
+	mano[3] = new Carta(2,2);
+	mano[4] = new Carta(2,0);
+	
+	m = new Mano(mano);
+	m.determinarMano();
+	
+	assertEquals("Poquer", m.mostrarJugada());
+    }
+    
+    @Test
+    public void testManoEscaleraDeColor() {
+	mano[0] = new Carta(5,0);
+	mano[1] = new Carta(1,0);
+	mano[2] = new Carta(4,0);
+	mano[3] = new Carta(2,0);
+	mano[4] = new Carta(3,0);
+	
+	m = new Mano(mano);
+	m.determinarMano();
+	
+	assertEquals("Escalera de color", m.mostrarJugada());
+    }
+    
+    @Test
+    public void testManoEscaleraReal() {
+	mano[0] = new Carta(9,0);
+	mano[1] = new Carta(10,0);
+	mano[2] = new Carta(8,0);
+	mano[3] = new Carta(11,0);
+	mano[4] = new Carta(12,0);
+	
+	m = new Mano(mano);
+	m.determinarMano();
+	
+	assertEquals("Escalera real", m.mostrarJugada());
+    }
+    
 
-	
-	assertEquals(m.getMano()[0], new Carta(0,3));
-	assertEquals(m.getMano()[4], new Carta(11,3));
-    }
-    
-    @Test
-    public void testManoOrdenadaPaloDistinto() {
-	mano[0] = new Carta(3,3);
-	mano[1] = new Carta(11,2);
-	mano[2] = new Carta(0,1);
-	mano[3] = new Carta(4,0);
-	mano[4] = new Carta(5,3);
-	
-	m = new Mano(mano);
-	
-	assertEquals(m.getMano()[0], new Carta(0,1));
-	assertEquals(m.getMano()[4], new Carta(11,2));
-    }
-    
-    @Test
-    public void testManoOrdenadaConIguales() {
-	mano[0] = new Carta(3,3);
-	mano[1] = new Carta(11,2);
-	mano[2] = new Carta(0,1);
-	mano[3] = new Carta(4,0);
-	mano[4] = new Carta(3,3);
-	
-	m = new Mano(mano);
-	
-	assertEquals(m.getMano()[1], new Carta(3,3));
-	assertEquals(m.getMano()[2], new Carta(3,3));
-    }
-    
-    @Test
-    public void testNumeroDeCartasTodasDistintas() {
-	//5 distintas significa que hay una Escalera, un Color o nada
-	assertEquals(5, m.cartasDistintas());
-    }
-    
-    @Test
-    public void testNumeroDeCartasDistintasPareja() {
-	mano[0] = new Carta(4,3);
-	mano[1] = new Carta(11,2);
-	mano[2] = new Carta(0,1);
-	mano[3] = new Carta(4,0);
-	mano[4] = new Carta(3,3);
-	
-	m = new Mano(mano);
-	
-	//4 distintas significa que hay una pareja
-	assertEquals(4, m.cartasDistintas());
-    }
-    
-    @Test
-    public void testNumeroDeCartasDistintasTrio() {
-	mano[0] = new Carta(3,2);
-	mano[1] = new Carta(11,2);
-	mano[2] = new Carta(0,1);
-	mano[3] = new Carta(3,0);
-	mano[4] = new Carta(3,3);
-	
-	m = new Mano(mano);
-	
-	//3 distintas significa que hay un trio o una doble pareja
-	assertEquals(3, m.cartasDistintas());
-    }
-    
-    @Test
-    public void testNumeroDeCartasDistintasDoblePareja() {
-	mano[0] = new Carta(0,2);
-	mano[1] = new Carta(11,2);
-	mano[2] = new Carta(0,1);
-	mano[3] = new Carta(3,0);
-	mano[4] = new Carta(11,3);
-	
-	m = new Mano(mano);
-	
-	//3 distintas significa que hay un trio o una doble pareja
-	assertEquals(3, m.cartasDistintas());
-    }
-    
-    @Test
-    public void testNumeroDeCartasDistintasPoquer() {
-	mano[0] = new Carta(0,2);
-	mano[1] = new Carta(11,2);
-	mano[2] = new Carta(0,1);
-	mano[3] = new Carta(0,0);
-	mano[4] = new Carta(0,3);
-	
-	m = new Mano(mano);
-	
-	//2 distintas significa que hay un poquer o un full house
-	assertEquals(2, m.cartasDistintas());
-    }
-    
-    @Test
-    public void testNumeroDeCartasDistintasFullHouse() {
-	mano[0] = new Carta(0,2);
-	mano[1] = new Carta(11,2);
-	mano[2] = new Carta(0,1);
-	mano[3] = new Carta(0,0);
-	mano[4] = new Carta(11,3);
-	
-	m = new Mano(mano);
-	
-	//2 distintas significa que hay un poquer o un full house
-	assertEquals(2, m.cartasDistintas());
-    }
     
 }
