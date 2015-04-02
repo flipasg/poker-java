@@ -11,20 +11,55 @@ import baraja.Carta;
 
 //Comienza la clase Mano
 public class Mano {
+	//numero de cartas maximas en la mano
+	private static final int CARTAS_MAXIMAS = 5;
     //array con las jugadas posibles
     private static final String[] JUGADAS =
 	{"Carta mas alta", "Pareja", "Doble pareja", "Trio", "Escalera", "Color", 
 	"Full house", "Poquer", "Escalera de color", "Escalera real"};
     private int jugada; //0 Carta mas alta, 9 Escalera real
     private Carta[] mano; //array de 5 cartas ordenadas
-    
+    private int cartasEnMano; //de 0 a 5
     /**
      * Constructor de la clase Mano
      * @param mano
      */
-    public Mano(Carta[] mano) {
-	Arrays.sort(mano); //ordenamos las cartas
-	this.mano = mano; //instanciamos la mano
+    public Mano() {
+    	mano = new Carta[CARTAS_MAXIMAS];
+    	cartasEnMano = 0;
+    }
+    
+    public void ordenarMano() {
+    	Arrays.sort(mano);
+    }
+    
+    public String verMano() {
+    	String laMano = "";
+    	for (int i = 0; i < mano.length; i++) {
+			Carta laCarta = mano[i];
+    		if(laCarta!=null) laMano+=laCarta.verCarta()+"\n";
+		}
+    	
+    	return laMano + "\n" + mostrarJugada() + "\n";
+    }
+    
+    public boolean anadirCarta(Carta c) {
+    	if(cartasEnMano>=CARTAS_MAXIMAS) return false;
+    	else {
+    		mano[cartasEnMano] = c;
+    		cartasEnMano++;
+    		return true;
+    	}
+    }
+    
+    public boolean quitarCarta(int posicionDeLaCarta) {
+    	if(posicionDeLaCarta>=CARTAS_MAXIMAS) return false;
+    	else if(posicionDeLaCarta>=cartasEnMano) return false;
+    	else {
+    		mano[posicionDeLaCarta] = null;
+    		cartasEnMano--;
+    		return true;
+    	}
     }
     
     /**
@@ -36,6 +71,13 @@ public class Mano {
     }
 
     /**
+	 * @return the cartasMaximas
+	 */
+	public static int getCartasMaximas() {
+		return CARTAS_MAXIMAS;
+	}
+
+	/**
      * Método obtener : getMano
      * @return el mano de la clase
      */
@@ -47,16 +89,17 @@ public class Mano {
      * Método : determinarMano
      */
     public void determinarMano() {
-	if(escaleraReal()) jugada = 9;
-	else if(escaleraDeColor()) jugada = 8;
-	else if(poquer()) jugada = 7;
-	else if(fullHouse()) jugada = 6;
-	else if(color()) jugada = 5;
-	else if(escalera()) jugada = 4;
-	else if(trio()) jugada = 3;
-	else if(doblesParejas()) jugada = 2;
-	else if(pareja()) jugada = 1;
-	else if(cartaMasAlta()) jugada = 0;
+    	ordenarMano();
+		if(escaleraReal()) jugada = 9;
+		else if(escaleraDeColor()) jugada = 8;
+		else if(poquer()) jugada = 7;
+		else if(fullHouse()) jugada = 6;
+		else if(color()) jugada = 5;
+		else if(escalera()) jugada = 4;
+		else if(trio()) jugada = 3;
+		else if(doblesParejas()) jugada = 2;
+		else if(pareja()) jugada = 1;
+		else if(cartaMasAlta()) jugada = 0;
     }
     
     /**
@@ -64,7 +107,7 @@ public class Mano {
      * @return String de la jugada
      */
     public String mostrarJugada() {
-	return JUGADAS[jugada];
+	return "JUGADA: " + JUGADAS[jugada];
     }
     
     
@@ -154,7 +197,7 @@ public class Mano {
      * Método : valorCartaMasAlta
      * @return int valor
      */
-    private int valorCartaMasAlta() {
+    public int valorCartaMasAlta() {
 	return mano[4].getValor();
     }
     
