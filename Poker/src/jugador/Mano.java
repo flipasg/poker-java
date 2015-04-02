@@ -75,7 +75,7 @@ public class Mano {
     
     /**
      * Método : cartasDistintas
-     * @return
+     * @return int cantidad de cartas distintas
      */
     private int cartasDistintas() {
 	int cartasDistintas = 1; //nunca van a poder ser todas las cartas iguales
@@ -101,7 +101,7 @@ public class Mano {
     
     /**
      * Método : cartaMasRepetida
-     * @return
+     * @return int numero de repeticiones de la carta mas repetida
      */
     private int cartaMasRepetida() {
 	//metodo similar al cartasDistintas
