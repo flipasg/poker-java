@@ -5,55 +5,56 @@
  */
 package jugador;
 
-import baraja.Carta;
 
 //Comienza la clase Jugador
 public class Jugador {
     private String nombre;
     private Mano manoJugador;
     
+    /**
+     * Constructor de la clase Jugador
+     * @param nombre
+     */
     public Jugador(String nombre) {
     	this.nombre = nombre;
     	manoJugador = new Mano();
     }
     
-    public void recibirCarta(Carta c) {
-    	manoJugador.anadirCarta(c);
+    /**
+     * Metodo obtener : getNombre
+     * @return el nombre de la clase
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * Metodo obtener : getManoJugador
+     * @return el manoJugador de la clase
+     */
+    public Mano getManoJugador() {
+        return manoJugador;
     }
     
     /**
-	 * @return the manoJugador
-	 */
-	public Mano getManoJugador() {
-		return manoJugador;
-	}
-
-	public void descartasCarta(int numeroDeCarta) {
-    	manoJugador.quitarCarta(numeroDeCarta);
+     * Metodo : verJugador
+     * @return elJugador
+     */
+    public String verJugador() {
+	return nombre + "\n" + manoJugador.verMano() + "\nJUGADA: " + manoJugador.verJugada() + "\n";
     }
-	
-	public Jugador determinarGanador(Jugador j) {
-		
-		if(manoJugador.getJugada()>j.manoJugador.getJugada()) return this;
-		else if (manoJugador.getJugada()<j.manoJugador.getJugada()) return j;
-		else {
-			if(manoJugador.valorCartaMasAlta()>j.manoJugador.valorCartaMasAlta())
-				return this;
-			else if(manoJugador.valorCartaMasAlta()<j.manoJugador.valorCartaMasAlta())
-				return j;
-			else return null;
-		}
-	}
-	
-	/**
-	 * @return the nombre
-	 */
-	public String getNombre() {
-		return nombre;
-	}
+    
+    /**
+     * Metodo : determinarGanador
+     * @param j
+     * @return el JugadorGanador
+     */
+    public Jugador determinarGanador(Jugador j) {
+	if(manoJugador.equals(manoJugador.mejorMano(j.manoJugador))) return this;
+	else if(j.manoJugador.equals(manoJugador.mejorMano(j.manoJugador))) return j;
+	else return this; //el jugador mas cercano a la "mano" gana
+    }
 
-	public String verJugador() {
-		return nombre + "\n" + manoJugador.verMano();
-		
-	}
+
+    
 }

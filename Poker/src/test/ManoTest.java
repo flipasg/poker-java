@@ -5,14 +5,13 @@
  */
 package test;
 
-import java.util.Arrays;
+import jugador.Mano;
+import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import baraja.Carta;
-import jugador.Mano;
-import junit.framework.TestCase;
 
 //Comienza la clase ManoTest
 public class ManoTest extends TestCase{
@@ -60,41 +59,214 @@ public class ManoTest extends TestCase{
     }
     
     @Test
+    public void testMejorManoIgualCMA() {
+	carta1 = new Carta(10,3);
+	carta2 = new Carta(5,0);
+	carta3 = new Carta(3,1);
+	carta4 = new Carta(1,2);
+	carta5 = new Carta(8,0);
+	
+	m.anadirCarta(carta1);
+	m.anadirCarta(carta2);
+	m.anadirCarta(carta3);
+	m.anadirCarta(carta4);
+	m.anadirCarta(carta5);
+	
+	Mano m2 = new Mano();
+	
+	m2.anadirCarta(carta1);
+	m2.anadirCarta(carta2);
+	m2.anadirCarta(carta3);
+	m2.anadirCarta(carta4);
+	m2.anadirCarta(carta5);
+	
+	assertNull(m.mejorMano(m2));
+    }
+    
+    @Test
+    public void testMejorManoIgualESC() {
+	carta1 = new Carta(5,3);
+	carta2 = new Carta(1,0);
+	carta3 = new Carta(4,1);
+	carta4 = new Carta(2,2);
+	carta5 = new Carta(3,0);
+	
+	m.anadirCarta(carta1);
+	m.anadirCarta(carta2);
+	m.anadirCarta(carta3);
+	m.anadirCarta(carta4);
+	m.anadirCarta(carta5);
+	
+	carta1 = new Carta(5,2);
+	carta2 = new Carta(1,1);
+	carta3 = new Carta(4,1);
+	carta4 = new Carta(2,2);
+	carta5 = new Carta(3,0);
+	
+	Mano m2 = new Mano();
+	
+	m2.anadirCarta(carta1);
+	m2.anadirCarta(carta2);
+	m2.anadirCarta(carta3);
+	m2.anadirCarta(carta4);
+	m2.anadirCarta(carta5);
+	
+	assertNull(m.mejorMano(m2));
+    }
+    
+    public void testMejorManoIgualPAREJA() {
+	carta1 = new Carta(10,3);
+	carta2 = new Carta(2,0);
+	carta3 = new Carta(3,1);
+	carta4 = new Carta(2,2);
+	carta5 = new Carta(8,0);
+	
+	m.anadirCarta(carta1);
+	m.anadirCarta(carta2);
+	m.anadirCarta(carta3);
+	m.anadirCarta(carta4);
+	m.anadirCarta(carta5);
+	
+	Mano m2 = new Mano();
+	
+	m2.anadirCarta(carta1);
+	m2.anadirCarta(carta2);
+	m2.anadirCarta(carta3);
+	m2.anadirCarta(carta4);
+	m2.anadirCarta(carta5);
+	
+	assertNull(m.mejorMano(m2));
+    }
+    
+    @Test
+    public void testMejorManoDistintas() {
+	carta1 = new Carta(10,3);
+	carta2 = new Carta(2,0);
+	carta3 = new Carta(3,1);
+	carta4 = new Carta(2,2);
+	carta5 = new Carta(8,0);
+	
+	m.anadirCarta(carta1);
+	m.anadirCarta(carta2);
+	m.anadirCarta(carta3);
+	m.anadirCarta(carta4);
+	m.anadirCarta(carta5);
+	
+	carta1 = new Carta(5,3);
+	carta2 = new Carta(1,0);
+	carta3 = new Carta(4,1);
+	carta4 = new Carta(2,2);
+	carta5 = new Carta(3,0);
+	
+	Mano m2 = new Mano();
+	
+	m2.anadirCarta(carta1);
+	m2.anadirCarta(carta2);
+	m2.anadirCarta(carta3);
+	m2.anadirCarta(carta4);
+	m2.anadirCarta(carta5);
+	
+	assertEquals(m2, m.mejorMano(m2));
+    }
+    
+    @Test
+    public void testMejorManoParejaDistintas() {
+	carta1 = new Carta(3,3);
+	carta2 = new Carta(5,0);
+	carta3 = new Carta(9,1);
+	carta4 = new Carta(9,2);
+	carta5 = new Carta(11,0);
+	
+	m.anadirCarta(carta1);
+	m.anadirCarta(carta2);
+	m.anadirCarta(carta3);
+	m.anadirCarta(carta4);
+	m.anadirCarta(carta5);
+	
+	carta1 = new Carta(6,3);
+	carta2 = new Carta(7,0);
+	carta3 = new Carta(10,1);
+	carta4 = new Carta(7,2);
+	carta5 = new Carta(11,0);
+	
+	Mano m2 = new Mano();
+	
+	m2.anadirCarta(carta1);
+	m2.anadirCarta(carta2);
+	m2.anadirCarta(carta3);
+	m2.anadirCarta(carta4);
+	m2.anadirCarta(carta5);
+	
+	assertEquals(m, m.mejorMano(m2));
+    }
+    
+    @Test
+    public void testMejorTrioDistinto() {
+	carta1 = new Carta(9,3);
+	carta2 = new Carta(5,0);
+	carta3 = new Carta(9,1);
+	carta4 = new Carta(9,2);
+	carta5 = new Carta(11,0);
+	
+	m.anadirCarta(carta1);
+	m.anadirCarta(carta2);
+	m.anadirCarta(carta3);
+	m.anadirCarta(carta4);
+	m.anadirCarta(carta5);
+	
+	carta1 = new Carta(6,3);
+	carta2 = new Carta(7,0);
+	carta3 = new Carta(7,1);
+	carta4 = new Carta(7,2);
+	carta5 = new Carta(11,0);
+	
+	Mano m2 = new Mano();
+	
+	m2.anadirCarta(carta1);
+	m2.anadirCarta(carta2);
+	m2.anadirCarta(carta3);
+	m2.anadirCarta(carta4);
+	m2.anadirCarta(carta5);
+	
+	assertEquals(m, m.mejorMano(m2));
+    }
+    
+    
+    @Test
     public void testManoCartaMasAlta() {
-		carta1 = new Carta(10,3);
-		carta2 = new Carta(5,0);
-		carta3 = new Carta(3,1);
-		carta4 = new Carta(1,2);
-		carta5 = new Carta(8,0);
+	carta1 = new Carta(10,3);
+	carta2 = new Carta(5,0);
+	carta3 = new Carta(3,1);
+	carta4 = new Carta(1,2);
+	carta5 = new Carta(8,0);
 		
-		m.anadirCarta(carta1);
-		m.anadirCarta(carta2);
-		m.anadirCarta(carta3);
-		m.anadirCarta(carta4);
-		m.anadirCarta(carta5);
+	m.anadirCarta(carta1);
+	m.anadirCarta(carta2);
+	m.anadirCarta(carta3);
+	m.anadirCarta(carta4);
+	m.anadirCarta(carta5);
 		
-		m.determinarMano();
+	m.determinarMano();
 		
-		assertEquals("Carta mas alta", m.mostrarJugada());
+	assertEquals("Carta mas alta", m.verJugada());
     }
     
     @Test
     public void testManoPareja() {
-		carta1 = new Carta(10,3);
-		carta2 = new Carta(2,0);
-		carta3 = new Carta(3,1);
-		carta4 = new Carta(2,2);
-		carta5 = new Carta(8,0);
-		
-		m.anadirCarta(carta1);
-		m.anadirCarta(carta2);
-		m.anadirCarta(carta3);
-		m.anadirCarta(carta4);
-		m.anadirCarta(carta5);
+	carta1 = new Carta(10,3);
+	carta2 = new Carta(2,0);
+	carta3 = new Carta(3,1);
+	carta4 = new Carta(2,2);
+	carta5 = new Carta(8,0);
 	
-		m.determinarMano();
-		
-		assertEquals("Pareja", m.mostrarJugada());
+	m.anadirCarta(carta1);
+	m.anadirCarta(carta2);
+	m.anadirCarta(carta3);
+	m.anadirCarta(carta4);
+	m.anadirCarta(carta5);
+	m.determinarMano();
+	
+	assertEquals("Pareja", m.verJugada());
     }
     
     @Test
@@ -113,7 +285,7 @@ public class ManoTest extends TestCase{
 	
 	m.determinarMano();
 	
-	assertEquals("Doble pareja", m.mostrarJugada());
+	assertEquals("Doble pareja", m.verJugada());
     }
     
     @Test
@@ -132,7 +304,7 @@ public class ManoTest extends TestCase{
 
 	m.determinarMano();
 	
-	assertEquals("Trio", m.mostrarJugada());
+	assertEquals("Trio", m.verJugada());
     }
     
     @Test
@@ -151,7 +323,7 @@ public class ManoTest extends TestCase{
 
 	m.determinarMano();
 	
-	assertEquals("Escalera", m.mostrarJugada());
+	assertEquals("Escalera", m.verJugada());
     }
     
     @Test
@@ -170,7 +342,7 @@ public class ManoTest extends TestCase{
 
 	m.determinarMano();
 	
-	assertEquals("Color", m.mostrarJugada());
+	assertEquals("Color", m.verJugada());
     }
     
     @Test
@@ -189,7 +361,7 @@ public class ManoTest extends TestCase{
 
 	m.determinarMano();
 	
-	assertEquals("Full house", m.mostrarJugada());
+	assertEquals("Full house", m.verJugada());
     }
     
     @Test
@@ -208,7 +380,7 @@ public class ManoTest extends TestCase{
 
 	m.determinarMano();
 	
-	assertEquals("Poquer", m.mostrarJugada());
+	assertEquals("Poquer", m.verJugada());
     }
     
     @Test
@@ -227,7 +399,7 @@ public class ManoTest extends TestCase{
 
 	m.determinarMano();
 	
-	assertEquals("Escalera de color", m.mostrarJugada());
+	assertEquals("Escalera de color", m.verJugada());
     }
     
     @Test
@@ -246,7 +418,7 @@ public class ManoTest extends TestCase{
 
 	m.determinarMano();
 	
-	assertEquals("Escalera real", m.mostrarJugada());
+	assertEquals("Escalera real", m.verJugada());
     }
 	
     

@@ -28,7 +28,7 @@ public class Carta implements Comparable<Carta>{
     }
     
     /**
-     * Método obtener : getPalo
+     * Metodo obtener : getPalo
      * @return el palo de la clase
      */
     public int getPalo() {
@@ -36,7 +36,7 @@ public class Carta implements Comparable<Carta>{
     }
 
     /**
-     * Método obtener : getValor
+     * Metodo obtener : getValor
      * @return el valor de la clase
      */
     public int getValor() {
@@ -44,14 +44,14 @@ public class Carta implements Comparable<Carta>{
     }
 
     /**
-     * Método : verCarta
+     * Metodo : verCarta
      * @return
      */
     public String verCarta() {
 	return VALORES[valor] + " de " + PALOS[palo];
     }
     
-    /* Método sobreescrito : equals
+    /* Metodo sobreescrito : equals
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -68,7 +68,7 @@ public class Carta implements Comparable<Carta>{
 	return true;
     }
 
-    /* Método sobreescrito : compareTo
+    /* Metodo sobreescrito : compareTo
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override

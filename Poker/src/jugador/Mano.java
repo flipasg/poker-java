@@ -11,8 +11,8 @@ import baraja.Carta;
 
 //Comienza la clase Mano
 public class Mano {
-	//numero de cartas maximas en la mano
-	private static final int CARTAS_MAXIMAS = 5;
+    //numero de cartas maximas en la mano
+    private static final int CARTAS_MAXIMAS = 5;
     //array con las jugadas posibles
     private static final String[] JUGADAS =
 	{"Carta mas alta", "Pareja", "Doble pareja", "Trio", "Escalera", "Color", 
@@ -20,6 +20,7 @@ public class Mano {
     private int jugada; //0 Carta mas alta, 9 Escalera real
     private Carta[] mano; //array de 5 cartas ordenadas
     private int cartasEnMano; //de 0 a 5
+    
     /**
      * Constructor de la clase Mano
      * @param mano
@@ -29,85 +30,136 @@ public class Mano {
     	cartasEnMano = 0;
     }
     
-    public void ordenarMano() {
-    	Arrays.sort(mano);
-    }
-    
-    public String verMano() {
-    	String laMano = "";
-    	for (int i = 0; i < mano.length; i++) {
-			Carta laCarta = mano[i];
-    		if(laCarta!=null) laMano+=laCarta.verCarta()+"\n";
-		}
-    	
-    	return laMano + "\n" + mostrarJugada() + "\n";
-    }
-    
-    public boolean anadirCarta(Carta c) {
-    	if(cartasEnMano>=CARTAS_MAXIMAS) return false;
-    	else {
-    		mano[cartasEnMano] = c;
-    		cartasEnMano++;
-    		return true;
-    	}
-    }
-    
-    public boolean quitarCarta(int posicionDeLaCarta) {
-    	if(posicionDeLaCarta>=CARTAS_MAXIMAS) return false;
-    	else if(posicionDeLaCarta>=cartasEnMano) return false;
-    	else {
-    		mano[posicionDeLaCarta] = null;
-    		cartasEnMano--;
-    		return true;
-    	}
-    }
-    
     /**
-     * Método obtener : getJugada
+     * Metodo obtener : getJugada
      * @return el jugada de la clase
      */
     public int getJugada() {
         return jugada;
     }
+    
+    /**
+     * Metodo obtener : getCartasMaximas
+     * @return el cartasMaximas de la clase
+     */
+    public static int getCartasMaximas() {
+        return CARTAS_MAXIMAS;
+    }
 
     /**
-	 * @return the cartasMaximas
-	 */
-	public static int getCartasMaximas() {
-		return CARTAS_MAXIMAS;
-	}
-
-	/**
-     * Método obtener : getMano
+     * Metodo obtener : getMano
      * @return el mano de la clase
      */
     public Carta[] getMano() {
         return mano;
     }
-    
+
     /**
-     * Método : determinarMano
+     * Metodo : verMano
+     * @return
      */
-    public void determinarMano() {
-    	ordenarMano();
-		if(escaleraReal()) jugada = 9;
-		else if(escaleraDeColor()) jugada = 8;
-		else if(poquer()) jugada = 7;
-		else if(fullHouse()) jugada = 6;
-		else if(color()) jugada = 5;
-		else if(escalera()) jugada = 4;
-		else if(trio()) jugada = 3;
-		else if(doblesParejas()) jugada = 2;
-		else if(pareja()) jugada = 1;
-		else if(cartaMasAlta()) jugada = 0;
+    public String verMano() {
+    	String laMano = "";
+    	
+    	for (int i = 0; i < mano.length; i++) {
+    	    Carta laCarta = mano[i];
+    	    if(laCarta!=null) laMano+=laCarta.verCarta()+"\n";
+    	}
+    	
+    	return laMano;
     }
     
     /**
-     * Método : mostrarJugada
+     * Metodo : mostrarJugada
      * @return String de la jugada
      */
-    public String mostrarJugada() {
-	return "JUGADA: " + JUGADAS[jugada];
+    public String verJugada() {
+	return JUGADAS[jugada];
+    }
+    
+    /**
+     * Metodo : anadirCarta
+     * @param c
+     * @return boolean si se puede (o no) anadir la carta
+     */
+    public boolean anadirCarta(Carta c) {
+    	if(cartasEnMano>=CARTAS_MAXIMAS) return false;
+    	else {
+    	    mano[cartasEnMano] = c;
+    	    cartasEnMano++;
+    	    return true;
+    	}
+    }
+    
+    /**
+     * Metodo : anadirCarta
+     * @param c
+     * @param n
+     * @return boolean si se puede (o no) anadir la carta
+     */
+    public boolean anadirCarta(Carta c, int n) {
+    	if(cartasEnMano>=CARTAS_MAXIMAS) return false;
+    	else if(n>=CARTAS_MAXIMAS) return false;
+    	else {
+    	    mano[n] = c;
+    	    cartasEnMano++;
+    	    return true;
+    	}
+    }
+    
+    /**
+     * Metodo : quitarCarta
+     * @param posicionDeLaCarta
+     * @return boolean si se puede (o no) quitar la carta
+     */
+    public boolean quitarCarta(int posicionDeLaCarta) {
+    	if(posicionDeLaCarta>=CARTAS_MAXIMAS) return false;
+    	else if(posicionDeLaCarta>=cartasEnMano) return false;
+    	else {
+    	    mano[posicionDeLaCarta] = null;
+    	    cartasEnMano--;
+    	    return true;
+    	}
+    }
+    
+    /**
+     * Metodo : determinarMano
+     */
+    public void determinarMano() {
+    	ordenarMano();
+    	if(escaleraReal()) jugada = 9;
+    	else if(escaleraDeColor()) jugada = 8;
+    	else if(poquer()) jugada = 7;
+    	else if(fullHouse()) jugada = 6;
+    	else if(color()) jugada = 5;
+    	else if(escalera()) jugada = 4;
+    	else if(trio()) jugada = 3;
+    	else if(doblesParejas()) jugada = 2;
+    	else if(pareja()) jugada = 1;
+    	else if(cartaMasAlta()) jugada = 0;
+    }
+    
+    /**
+     * Metodo : mejorMano
+     * @param m
+     * @return Mano mejor (null si empate)
+     */
+    public Mano mejorMano(Mano m) {
+	determinarMano();
+	m.determinarMano();
+	if(jugada>m.jugada) return this;
+	else if(jugada<m.jugada) return m;
+	else {
+	    if(jugada==1 || jugada==2 || jugada==3 || jugada==6 || jugada==7) {
+		if(cartaMasRepetida().compareTo(m.cartaMasRepetida())==1) return this;
+		else if(cartaMasRepetida().compareTo(m.cartaMasRepetida())==-1) return m;
+		else return null;
+	    } else{
+		if(valorCartaMasAlta()>m.valorCartaMasAlta()) return this;
+		else if(valorCartaMasAlta()<m.valorCartaMasAlta()) return m;
+		else return null;
+	    }
+	}
     }
     
     
@@ -117,7 +169,14 @@ public class Mano {
     
     
     /**
-     * Método : cartasDistintas
+     * Metodo : ordenarMano
+     */
+    private void ordenarMano() {
+    	Arrays.sort(mano);
+    }
+    
+    /**
+     * Metodo : cartasDistintas
      * @return int cantidad de cartas distintas
      */
     private int cartasDistintas() {
@@ -143,12 +202,27 @@ public class Mano {
     }
     
     /**
-     * Método : cartaMasRepetida
+     * Metodo : aparicionesCartaMasRepetida
      * @return int numero de repeticiones de la carta mas repetida
      */
-    private int cartaMasRepetida() {
+    private int aparicionesCartaMasRepetida() {
+	Carta cartaMasRepetida = cartaMasRepetida();
+	int repeticiones = 0;
+	for (int i = 0; i < mano.length; i++) {
+	    if(cartaMasRepetida.equals(mano[i])) repeticiones++;
+	}
+	
+	return repeticiones;
+    }
+    
+    /**
+     * Metodo : cartaMasRepetida
+     * @return Carta mas repetida
+     */
+    private Carta cartaMasRepetida() {
 	//metodo similar al cartasDistintas
 	//este determina cuantas veces se repite la carta mas repetida
+	Carta cartaMasRepetida = null; //inicializamos a null
 	int maximoDeRepeticiones = 0; //inicializamos a un valor menor a los posibles
 	int numeroDeRepeticiones = 1; //siempre va a haber minimo una carta
 	
@@ -159,22 +233,24 @@ public class Mano {
 		comparada++;
 		numeroDeRepeticiones++;
 	    } else {
-		actual = comparada;
-		comparada++;
-		
 		//si el maximo de repeticiones es menor al
 		//numero de repeticiones de la carta actual
-		if(maximoDeRepeticiones<numeroDeRepeticiones) 
+		if(maximoDeRepeticiones<numeroDeRepeticiones) {
 		    maximoDeRepeticiones = numeroDeRepeticiones; //el numero maximo de repeticiones pasa a ser el actual
-		numeroDeRepeticiones = 0; //reinicializamos el numero de repeticiones
+		    cartaMasRepetida = mano[actual];
+		} 
+		numeroDeRepeticiones = 1; //reinicializamos el numero de repeticiones
+		
+		actual = comparada;
+		comparada++;
 	    }
 	}
 	
-	return maximoDeRepeticiones;
+	return cartaMasRepetida;
     }
     
     /**
-     * Método : mismoPalo
+     * Metodo : mismoPalo
      * @return boolean si todos los palos son (o no) iguales
      */
     private boolean mismoPalo() {
@@ -186,7 +262,7 @@ public class Mano {
     }
     
     /**
-     * Método : valorCartaMasBaja
+     * Metodo : valorCartaMasBaja
      * @return int valor
      */
     private int valorCartaMasBaja() {
@@ -194,15 +270,15 @@ public class Mano {
     }
     
     /**
-     * Método : valorCartaMasAlta
+     * Metodo : valorCartaMasAlta
      * @return int valor
      */
-    public int valorCartaMasAlta() {
+    private int valorCartaMasAlta() {
 	return mano[4].getValor();
     }
     
     /**
-     * Método : seguidas
+     * Metodo : seguidas
      * @return boolean si las cartas van (o no) seguidas
      */
     private boolean seguidas() {
@@ -214,7 +290,7 @@ public class Mano {
     }
     
     /**
-     * Método : escalera
+     * Metodo : escalera
      * @return boolean si hay (o no) escalera
      */
     private boolean escalera() {
@@ -225,7 +301,7 @@ public class Mano {
     }
     
     /**
-     * Método : escaleraDeColor
+     * Metodo : escaleraDeColor
      * @return boolean si hay (o no) escalera de color
      */
     private boolean escaleraDeColor() {
@@ -236,7 +312,7 @@ public class Mano {
     }
     
     /**
-     * Método : escaleraReal
+     * Metodo : escaleraReal
      * @returnboolean si hay (o no) escalera real
      */
     private boolean escaleraReal() {
@@ -248,7 +324,7 @@ public class Mano {
     }
     
     /**
-     * Método : color
+     * Metodo : color
      * @return boolean si hay (o no) color
      */
     private boolean color() {
@@ -259,7 +335,7 @@ public class Mano {
     }
     
     /**
-     * Método : cartaMasAlta
+     * Metodo : cartaMasAlta
      * @return boolean si hay (o no) carta mas alta
      */
     private boolean cartaMasAlta() {
@@ -270,7 +346,7 @@ public class Mano {
     }
     
     /**
-     * Método : pareja
+     * Metodo : pareja
      * @return boolean si hay (o no) pareja
      */
     private boolean pareja() {
@@ -286,40 +362,40 @@ public class Mano {
      */
     private boolean doblesParejas() {
 	//3 cartas distintas y la carta que mas se repite 2 veces
-	if(cartasDistintas()==3 && cartaMasRepetida()==2) return true;
+	if(cartasDistintas()==3 && aparicionesCartaMasRepetida()==2) return true;
 	
 	return false;
     }
     
     /**
-     * Método : trio
+     * Metodo : trio
      * @return boolean si hay (o no) trio
      */
     private boolean trio() {
 	//3 cartas distintas y la carta que mas se repite 3 veces
-	if(cartasDistintas()==3 && cartaMasRepetida()==3) return true;
+	if(cartasDistintas()==3 && aparicionesCartaMasRepetida()==3) return true;
 	
 	return false;
     }
     
     /**
-     * Método : fullHouse
+     * Metodo : fullHouse
      * @return boolean si hay (o no) full house
      */
     private boolean fullHouse() {
 	//2 cartas distintas y la carta que mas se repite 3 veces
-	if(cartasDistintas()==2 && cartaMasRepetida()==3) return true;
+	if(cartasDistintas()==2 && aparicionesCartaMasRepetida()==3) return true;
 	
 	return false;
     }
     
     /**
-     * Método : poquer
+     * Metodo : poquer
      * @return boolean si hay (o no) poquer
      */
     private boolean poquer() {
 	//2 cartas distintas y la carta que mas se repite 4 veces
-	if(cartasDistintas()==2 && cartaMasRepetida()==4) return true;
+	if(cartasDistintas()==2 && aparicionesCartaMasRepetida()==4) return true;
 	
 	return false;
     } 
